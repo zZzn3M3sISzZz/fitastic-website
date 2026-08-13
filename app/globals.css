@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton+SC&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Anton SC", Impact, sans-serif;
+  --color-canvas: #141517;
+  --color-ink: #101010;
+  --color-lime: #d4fb97;
+  --color-lime-bright: #c8f666;
+  --color-navy: #172a41;
+  --color-muted: #8a8c93;
+  --color-soft: #bfccda;
+  --color-surface: #1e1e20;
+  --color-line: #222226;
+  --color-dot: #28292d;
+  --space-gutter: 200px;
+}
+
+@media (max-width: 1279px) {
+  :root {
+    --space-gutter: 80px;
+  }
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --space-gutter: 40px;
+  }
+}
+
+@media (max-width: 639px) {
+  :root {
+    --space-gutter: 20px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  background: var(--color-canvas);
+  color: #fff;
+}
+
+body {
+  min-height: 100dvh;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--color-lime);
+  color: var(--color-navy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-lime);
+  outline-offset: 3px;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.reveal-load,
+.reveal-scroll.is-in {
+  animation: fade-up 320ms ease-out both;
+}
+
+.reveal-delay-1 {
+  animation-delay: 80ms;
+}
+
+.reveal-delay-2 {
+  animation-delay: 160ms;
+}
+
+.reveal-delay-3 {
+  animation-delay: 240ms;
+}
+
+.reveal-scroll:not(.is-in) {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+}
+
+.status-dot {
+  position: relative;
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-dot__core {
+  position: relative;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+}
+
+.status-dot__ripple {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #d4fb97;
+  animation: status-ripple 1.8s ease-out infinite;
+}
+
+.status-dot__ripple--late {
+  animation-delay: 0.9s;
+}
+
+@keyframes status-ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(2.35);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal-load,
+  .reveal-scroll,
+  .reveal-scroll.is-in,
+  .reveal-scroll:not(.is-in) {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+
+  .status-dot__ripple {
+    display: none;
+  }
+}
