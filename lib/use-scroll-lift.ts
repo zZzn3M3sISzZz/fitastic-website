@@ -5,12 +5,13 @@ import { useEffect, type RefObject } from "react";
 type ScrollLiftOptions = {
   lift?: number;
   grow?: number;
+  from?: number;
 };
 
 export function useScrollLift(
   wrapRef: RefObject<HTMLElement | null>,
   frameRef: RefObject<HTMLElement | null>,
-  { lift = -42, grow = 0.045 }: ScrollLiftOptions = {},
+  { lift = -42, grow = 0.045, from = 0 }: ScrollLiftOptions = {},
 ) {
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -32,7 +33,7 @@ export function useScrollLift(
         1,
         Math.max(0, (start - rect.top) / Math.max(start - end, 1)),
       );
-      targetY = progress * lift;
+      targetY = from + progress * lift;
       targetScale = 1 + progress * grow;
     };
 
@@ -68,5 +69,5 @@ export function useScrollLift(
       window.removeEventListener("resize", start);
       if (raf) window.cancelAnimationFrame(raf);
     };
-  }, [wrapRef, frameRef, lift, grow]);
+  }, [wrapRef, frameRef, lift, grow, from]);
 }

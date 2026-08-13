@@ -98,13 +98,13 @@ export function SiteFooter() {
       </div>
 
       <Reveal when="scroll" delay={2}>
-        <div className="pointer-events-none relative mx-auto h-[157px] w-full max-w-[1062px] overflow-hidden opacity-20">
+        <div className="pointer-events-none relative mx-auto w-full max-w-[1062px] opacity-20">
           <img
             src="/assets/logo-wordmark.png"
             alt=""
             width={2172}
             height={724}
-            className="absolute left-[-53.9%] top-[-106.37%] h-[355.65%] w-[158.17%] max-w-none"
+            className="h-auto w-full object-contain"
           />
         </div>
       </Reveal>

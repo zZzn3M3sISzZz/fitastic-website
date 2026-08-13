@@ -11,6 +11,10 @@ type ComingDeviceProps = {
   height: number;
   className?: string;
   imageClassName?: string;
+  lift?: number;
+  grow?: number;
+  from?: number;
+  flow?: boolean;
 };
 
 export function ComingDevice({
@@ -20,14 +24,30 @@ export function ComingDevice({
   height,
   className,
   imageClassName,
+  lift,
+  grow,
+  from,
+  flow = false,
 }: ComingDeviceProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
-  useScrollLift(wrapRef, frameRef);
+  useScrollLift(wrapRef, frameRef, {
+    ...(lift !== undefined ? { lift } : {}),
+    ...(grow !== undefined ? { grow } : {}),
+    ...(from !== undefined ? { from } : {}),
+  });
 
   return (
-    <div ref={wrapRef} className={cn("pointer-events-none absolute inset-0", className)}>
-      <div ref={frameRef} className="size-full origin-bottom">
+    <div
+      ref={wrapRef}
+      className={cn(
+        "pointer-events-none",
+        flow ? "relative w-full" : "absolute",
+        !flow && !className && "inset-x-0 bottom-0 top-0",
+        className,
+      )}
+    >
+      <div ref={frameRef} className={cn("origin-bottom", flow ? "w-full" : "size-full")}>
         <img
           src={src}
           alt={alt}

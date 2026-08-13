@@ -21,15 +21,8 @@ export function ComingSection() {
         <div className="flex flex-col gap-8">
           <Reveal
             when="scroll"
-            className="relative h-[min(640px,88vw)] overflow-hidden bg-surface lg:h-[640px]"
+            className="relative flex flex-col bg-surface lg:block lg:h-[640px] lg:overflow-hidden"
           >
-            <ComingDevice
-              src="/assets/coming-phone.png"
-              alt="Fitastic app on a phone, with weekly momentum and a personal insight card"
-              width={2080}
-              height={1280}
-              imageClassName="absolute inset-0 size-full object-cover object-right-bottom"
-            />
             <div className="relative z-10 flex max-w-[424px] flex-col gap-4 p-6 sm:p-10">
               <h3 className="font-display text-[clamp(22px,3vw,33px)] uppercase leading-[1.2] text-lime">
                 Built around you
@@ -39,24 +32,46 @@ export function ComingSection() {
                 and keeps you moving forward.
               </p>
             </div>
+            <ComingDevice
+              src="/assets/coming-phone.png"
+              alt="Fitastic app on a phone, with weekly momentum and a personal insight card"
+              width={2080}
+              height={1280}
+              flow
+              lift={0}
+              grow={0}
+              className="lg:hidden"
+              imageClassName="h-auto w-full"
+            />
+            <ComingDevice
+              src="/assets/coming-phone.png"
+              alt="Fitastic app on a phone, with weekly momentum and a personal insight card"
+              width={2080}
+              height={1280}
+              from={16}
+              lift={-20}
+              className="inset-0 hidden lg:block"
+              imageClassName="absolute inset-0 size-full object-cover object-right-bottom"
+            />
           </Reveal>
 
           <div className="grid gap-8 lg:grid-cols-2">
             <Reveal
               when="scroll"
               delay={1}
-              className="relative min-h-[560px] overflow-hidden bg-surface lg:h-[640px]"
+              className="flex min-h-[560px] flex-col bg-surface p-6 sm:p-10 lg:min-h-[640px]"
             >
-              <div className="relative z-10 flex max-w-[399px] flex-col gap-4 p-6 sm:p-10">
+              <div className="flex max-w-[399px] flex-col gap-4">
                 <h3 className="font-display text-[clamp(22px,2.4vw,33px)] uppercase leading-[1.2] text-lime">
-                  Your progress, reimagined
+                  <span className="block">Your progress,</span>
+                  <span className="block">reimagined</span>
                 </h3>
                 <p className="text-base leading-[1.4] text-white">
                   See your effort turn into momentum. Every workout, every milestone
                   and every active day—brought together in one clear view.
                 </p>
               </div>
-              <div className="relative z-10 flex justify-center px-6 pb-10 lg:absolute lg:inset-x-0 lg:bottom-[90px] lg:px-0">
+              <div className="mt-8 flex flex-1 items-center justify-center lg:mt-10 lg:items-end lg:pb-2">
                 <WeeklyStatsCard />
               </div>
             </Reveal>
