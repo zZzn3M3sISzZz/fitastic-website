@@ -1,3 +1,4 @@
+import { ComingSection } from "@/components/coming-section";
 import { FaqSection } from "@/components/faq-section";
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
@@ -16,6 +17,7 @@ export default function HomePage() {
         <Header />
         <main>
           <Hero />
+          <ComingSection />
           <FaqSection />
         </main>
         <SiteFooter />

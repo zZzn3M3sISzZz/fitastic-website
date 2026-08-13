@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 
 const NAV = [
   { href: "#movement", label: "The Movement" },
-  { href: "#loop", label: "What’s Coming" },
+  { href: "#coming", label: "What’s Coming" },
   { href: "#faqs", label: "FAQs" },
 ];
 
