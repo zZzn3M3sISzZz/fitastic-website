@@ -5,7 +5,6 @@ const COLUMNS = [
   {
     title: "EXPLORE",
     links: [
-      { href: "#movement", label: "The Movement" },
       { href: "#loop", label: "About Fitastic" },
       { href: "#waitlist", label: "Early Access" },
     ],

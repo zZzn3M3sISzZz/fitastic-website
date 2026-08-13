@@ -21,7 +21,7 @@ export function ComingSection() {
         <div className="flex flex-col gap-8">
           <Reveal
             when="scroll"
-            className="relative flex flex-col bg-surface lg:block lg:h-[640px] lg:overflow-hidden"
+            className="relative flex flex-col overflow-hidden bg-surface lg:block lg:h-[640px]"
           >
             <div className="relative z-10 flex max-w-[424px] flex-col gap-4 p-6 sm:p-10">
               <h3 className="font-display text-[clamp(22px,3vw,33px)] uppercase leading-[1.2] text-lime">
@@ -40,8 +40,8 @@ export function ComingSection() {
               flow
               lift={0}
               grow={0}
-              className="lg:hidden"
-              imageClassName="h-auto w-full"
+              className="lg:hidden -mt-16"
+              imageClassName="h-auto w-[120%] max-w-none -ml-[10%]"
             />
             <ComingDevice
               src="/assets/coming-phone.png"
