@@ -8,6 +8,7 @@ type PillButtonProps = {
   showDot?: boolean;
   tone?: "lime" | "bright";
   disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
 };
 
 export function PillButton({
@@ -18,6 +19,7 @@ export function PillButton({
   showDot = false,
   tone = "lime",
   disabled = false,
+  onClick,
 }: PillButtonProps) {
   const classes = cn(
     "inline-flex min-h-11 cursor-pointer items-center justify-center gap-2.5 rounded-full px-4 py-4 text-center text-base font-medium leading-[18px] transition-colors duration-tap",
@@ -39,14 +41,14 @@ export function PillButton({
 
   if (href) {
     return (
-      <a href={href} className={classes}>
+      <a href={href} className={classes} onClick={onClick}>
         {content}
       </a>
     );
   }
 
   return (
-    <button type={type} className={classes} disabled={disabled}>
+    <button type={type} className={classes} disabled={disabled} onClick={onClick}>
       {content}
     </button>
   );

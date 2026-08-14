@@ -117,6 +117,7 @@ export function Header() {
             href="#waitlist"
             showDot
             className="mt-2 self-start sm:hidden"
+            onClick={() => setOpen(false)}
           >
             Early Access
           </PillButton>

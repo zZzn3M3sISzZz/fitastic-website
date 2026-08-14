@@ -12,7 +12,7 @@ export function Hero() {
       <HeroBackground />
 
       <div className="relative mx-auto min-h-[981px] max-w-page">
-        <div className="flex max-w-[648px] flex-col gap-4 px-gutter pb-10 pt-36 lg:absolute lg:left-0 lg:top-[342px] lg:pb-0 lg:pt-0">
+        <div className="relative z-10 flex max-w-[648px] flex-col gap-4 px-gutter pb-10 pt-36 lg:absolute lg:left-0 lg:top-[342px] lg:pb-0 lg:pt-0">
           <Reveal delay={1} className="flex flex-col gap-[7px]">
             <p className="flex items-center gap-3 whitespace-nowrap text-base leading-normal text-white">
               <span className="status-dot" aria-hidden="true">
@@ -67,7 +67,7 @@ export function Hero() {
           </Reveal>
         </div>
 
-        <Reveal delay={3} className="relative lg:h-[981px]">
+        <Reveal delay={3} className="pointer-events-none relative lg:h-[981px]">
           <div className="absolute bottom-[639px] right-[504px] hidden size-[103px] bg-lime lg:block" />
           <div className="flex flex-col bg-lime px-6 pb-10 pt-8 lg:absolute lg:inset-x-auto lg:bottom-0 lg:right-0 lg:block lg:h-[639px] lg:w-[504px] lg:p-0">
             <p className="flex items-center gap-3 text-base leading-normal text-ink lg:absolute lg:left-[39px] lg:top-[52px]">
