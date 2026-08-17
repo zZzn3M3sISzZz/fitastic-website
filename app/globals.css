@@ -161,4 +161,8 @@ body {
   .status-dot__ripple {
     display: none;
   }
+
+  .weekly-stats-bar {
+    transform: scaleY(1) !important;
+  }
 }

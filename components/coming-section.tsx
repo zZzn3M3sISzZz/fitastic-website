@@ -86,7 +86,7 @@ export function ComingSection() {
                 alt="Fitastic schedule on an Apple Watch Ultra"
                 width={1008}
                 height={1067}
-                imageClassName="absolute left-0 top-[17%] h-[114%] w-[134%] object-cover object-left-top"
+                imageClassName="absolute left-0 top-[17%] h-[96%] w-auto object-left-top"
               />
               <div
                 className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-full bg-gradient-to-b from-transparent from-[50%] to-canvas"
