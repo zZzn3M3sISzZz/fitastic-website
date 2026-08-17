@@ -6,8 +6,8 @@ import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/cn";
 
 const NAV = [
-  { href: "#coming", label: "What’s Coming" },
-  { href: "#faqs", label: "FAQs" },
+  { href: "/#coming", label: "What’s Coming" },
+  { href: "/#faqs", label: "FAQs" },
 ];
 
 export function Header() {
@@ -37,7 +37,7 @@ export function Header() {
     >
       <Reveal className="mx-auto flex max-w-page items-center justify-between px-gutter py-6">
         <div className="flex items-center gap-6">
-          <a href="#top" className="flex items-center" aria-label="Fitastic home">
+          <a href="/" className="flex items-center" aria-label="Fitastic home">
             <span className="relative block h-[43px] w-[129px] overflow-hidden lg:h-[54px] lg:w-[163px]">
               <img
                 src="/assets/logo.png"
@@ -62,7 +62,7 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-3">
-          <PillButton href="#waitlist" showDot className="hidden sm:inline-flex">
+          <PillButton href="/#waitlist" showDot className="hidden sm:inline-flex">
             Early Access
           </PillButton>
           <button
@@ -114,7 +114,7 @@ export function Header() {
             </a>
           ))}
           <PillButton
-            href="#waitlist"
+            href="/#waitlist"
             showDot
             className="mt-2 self-start sm:hidden"
             onClick={() => setOpen(false)}

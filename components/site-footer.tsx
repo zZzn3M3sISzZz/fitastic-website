@@ -5,24 +5,22 @@ const COLUMNS = [
   {
     title: "EXPLORE",
     links: [
-      { href: "#loop", label: "About Fitastic" },
-      { href: "#waitlist", label: "Early Access" },
+      { href: "/#loop", label: "About Fitastic" },
+      { href: "/#waitlist", label: "Early Access" },
     ],
   },
   {
     title: "SOCIAL",
     links: [
       { href: "https://instagram.com", label: "Instagram" },
-      { href: "https://youtube.com", label: "YouTube" },
-      { href: "https://facebook.com", label: "Facebook" },
     ],
   },
   {
     title: "OTHERS",
     links: [
-      { href: "#", label: "Terms of Use" },
-      { href: "#", label: "Privacy Policy" },
-      { href: "#", label: "Cookie Policy" },
+      { href: "/terms", label: "Terms of Use" },
+      { href: "/privacy", label: "Privacy Policy" },
+      { href: "/cookies", label: "Cookie Policy" },
     ],
   },
 ];
