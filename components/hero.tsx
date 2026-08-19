@@ -1,4 +1,5 @@
 import { HeroBackground } from "@/components/hero-background";
+import { LaunchCountdown } from "@/components/launch-countdown";
 import { PhoneMockup } from "@/components/phone-mockup";
 import { PillButton } from "@/components/pill-button";
 import { Reveal } from "@/components/reveal";
@@ -12,7 +13,9 @@ export function Hero() {
       <HeroBackground />
 
       <div className="relative mx-auto min-h-[981px] max-w-page">
-        <div className="relative z-10 flex max-w-[648px] flex-col gap-4 px-gutter pb-10 pt-36 lg:absolute lg:left-0 lg:top-[342px] lg:pb-0 lg:pt-0">
+        <LaunchCountdown />
+
+        <div className="relative z-10 flex max-w-[648px] flex-col gap-4 px-gutter pb-10 pt-8 lg:absolute lg:left-0 lg:top-[342px] lg:pb-0 lg:pt-0">
           <Reveal delay={1} className="flex flex-col gap-[7px]">
             <p className="flex items-center gap-3 whitespace-nowrap text-base leading-normal text-white">
               <span className="status-dot" aria-hidden="true">
