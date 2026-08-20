@@ -82,7 +82,7 @@ export function LaunchCountdown() {
                 />
               </span>
             </span>
-            IT'S HERE
+            {"IT'S HERE"}
           </p>
         ) : null}
 
