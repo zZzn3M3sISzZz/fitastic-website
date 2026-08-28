@@ -136,6 +136,19 @@ body {
   }
 }
 
+@keyframes shop-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.shop-ticker-track {
+  animation: shop-ticker 45s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -164,5 +177,13 @@ body {
 
   .weekly-stats-bar {
     transform: scaleY(1) !important;
+  }
+
+  .shop-ticker-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+    max-width: 100%;
   }
 }

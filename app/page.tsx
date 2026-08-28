@@ -2,6 +2,7 @@ import { ComingSection } from "@/components/coming-section";
 import { FaqSection } from "@/components/faq-section";
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
+import { ShopSection } from "@/components/shop-section";
 import { SiteFooter } from "@/components/site-footer";
 
 export default function HomePage() {
@@ -18,6 +19,7 @@ export default function HomePage() {
         <main>
           <Hero />
           <ComingSection />
+          <ShopSection />
           <FaqSection />
         </main>
         <SiteFooter />
