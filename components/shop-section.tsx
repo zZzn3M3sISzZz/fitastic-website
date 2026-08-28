@@ -40,6 +40,10 @@ const TICKER_ITEMS = [
 
 const AUTO_SCROLL_MS = 5000;
 
+/** Shared mobile headline size — sized so "EVERYTHING YOU NEED" fits the padded content width. */
+const SHOP_HEADLINE_MOBILE =
+  "text-[clamp(28px,calc((100vw-var(--space-gutter)*2)/11),115.375px)]";
+
 function StarSeparator() {
   return (
     <svg
@@ -270,21 +274,33 @@ export function ShopSection() {
   return (
     <section id="shop" className="scroll-mt-24 bg-canvas">
       <div className="mx-auto flex max-w-page flex-col gap-10 px-gutter py-20 lg:gap-14">
-        <Reveal when="scroll" className="flex flex-col gap-[8.125px]">
-          <p className="font-display whitespace-nowrap text-[clamp(48px,10vw,115.375px)] uppercase leading-none text-lime">
+        <Reveal when="scroll" className="flex min-w-0 flex-col gap-[8.125px]">
+          <p
+            className={cn(
+              "max-w-full min-w-0 font-display whitespace-nowrap uppercase leading-none text-lime",
+              SHOP_HEADLINE_MOBILE,
+              "lg:text-[clamp(48px,10vw,115.375px)]",
+            )}
+          >
             EVERYTHING YOU NEED
           </p>
-          <div className="relative w-full lg:min-h-[115.375px]">
-            <p className="max-w-[321px] break-words text-[13px] font-medium leading-[1.6] text-[#fcfff7] lg:absolute lg:left-[109px] lg:top-1/2 lg:z-[1] lg:w-[321px] lg:max-w-[321px] lg:-translate-y-1/2">
+          <div className="relative w-full min-w-0 lg:min-h-[115.375px]">
+            <div className="min-w-0 lg:absolute lg:inset-y-0 lg:left-[430px] lg:right-0 lg:overflow-hidden">
+              <p
+                className={cn(
+                  "max-w-full min-w-0 font-display whitespace-nowrap uppercase leading-none text-lime",
+                  SHOP_HEADLINE_MOBILE,
+                  "lg:absolute lg:right-0 lg:top-[-0.13px] lg:w-[min(849px,100%)] lg:max-w-none lg:text-right lg:text-[clamp(36px,calc((100vw-var(--space-gutter)*2-430px)/8.5),115.375px)]",
+                )}
+              >
+                TO MOVE BETTER
+              </p>
+            </div>
+            <p className="mt-4 max-w-[321px] break-words text-[13px] font-medium leading-[1.6] text-[#fcfff7] lg:absolute lg:left-[109px] lg:top-1/2 lg:z-[1] lg:mt-0 lg:w-[321px] lg:max-w-[321px] lg:-translate-y-1/2">
               From activewear and equipment to accessories and everyday fitness
               essentials—shop everything you need to move, train and live
               better, all in one place.
             </p>
-            <div className="lg:absolute lg:inset-y-0 lg:left-[430px] lg:right-0 lg:overflow-hidden">
-              <p className="mt-4 font-display whitespace-nowrap text-[clamp(32px,9vw,115.375px)] uppercase leading-none text-lime lg:absolute lg:right-0 lg:top-[-0.13px] lg:mt-0 lg:w-[min(849px,100%)] lg:text-right lg:text-[clamp(36px,calc((100vw-var(--space-gutter)*2-430px)/8.5),115.375px)]">
-                TO MOVE BETTER
-              </p>
-            </div>
           </div>
         </Reveal>
 
