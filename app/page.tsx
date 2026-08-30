@@ -1,7 +1,10 @@
 import { ComingSection } from "@/components/coming-section";
 import { FaqSection } from "@/components/faq-section";
+import { FitnessOnDemandSection } from "@/components/fitness-on-demand-section";
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
+import { LeaderboardsLoopSection } from "@/components/leaderboards-loop-section";
+import { MorganSection } from "@/components/morgan-section";
 import { ShopSection } from "@/components/shop-section";
 import { SiteFooter } from "@/components/site-footer";
 
@@ -19,6 +22,9 @@ export default function HomePage() {
         <main>
           <Hero />
           <ComingSection />
+          <MorganSection />
+          <LeaderboardsLoopSection />
+          <FitnessOnDemandSection />
           <ShopSection />
           <FaqSection />
         </main>

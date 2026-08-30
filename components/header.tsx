@@ -7,6 +7,10 @@ import { cn } from "@/lib/cn";
 
 const NAV = [
   { href: "/#coming", label: "What’s Coming" },
+  { href: "/#morgan", label: "Morgan" },
+  { href: "/#leaderboards", label: "Leaderboards" },
+  { href: "/#loop", label: "Loop" },
+  { href: "/#fitness-on-demand", label: "On Demand" },
   { href: "/#shop", label: "Shop" },
   { href: "/#faqs", label: "FAQs" },
 ];
@@ -49,12 +53,12 @@ export function Header() {
               />
             </span>
           </a>
-          <nav aria-label="Primary" className="hidden items-center lg:flex">
+          <nav aria-label="Primary" className="hidden items-center xl:flex">
             {NAV.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="px-3.5 py-2 text-base font-medium text-white transition-opacity duration-tap hover:opacity-70"
+                className="px-2.5 py-2 text-[15px] font-medium text-white transition-opacity duration-tap hover:opacity-70 xl:px-3"
               >
                 {item.label}
               </a>
@@ -68,7 +72,7 @@ export function Header() {
           </PillButton>
           <button
             type="button"
-            className="inline-flex size-11 items-center justify-center rounded-full text-white lg:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-full text-white xl:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((value) => !value)}
@@ -101,7 +105,7 @@ export function Header() {
       <div
         id="mobile-nav"
         hidden={!open}
-        className="border-t border-line bg-canvas px-gutter py-6 lg:hidden"
+        className="border-t border-line bg-canvas px-gutter py-6 xl:hidden"
       >
         <nav aria-label="Mobile" className="flex flex-col gap-2">
           {NAV.map((item) => (

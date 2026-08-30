@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/cn";
 
@@ -101,7 +101,7 @@ function ComingSoonButton() {
       type="button"
       disabled
       aria-label="Coming soon"
-      className="inline-flex h-[55px] shrink-0 cursor-default items-center justify-center gap-2 rounded-[60px] border border-solid border-white px-6 text-[16px] font-semibold leading-[1.3] text-white"
+      className="inline-flex h-[55px] shrink-0 cursor-default items-center justify-center gap-2 rounded-[60px] border border-solid border-black bg-black px-6 text-[16px] font-semibold leading-[1.3] text-lime"
     >
       Coming Soon
       <ArrowUpRight />
@@ -131,11 +131,101 @@ function ShopTicker() {
   );
 }
 
+type ShopPromo = (typeof PROMOS)[number];
+
+type CarouselSlide = {
+  promo: ShopPromo;
+  /** Position in the extended track (includes clones). */
+  domIndex: number;
+  /** Index into PROMOS for real slides; clones map to their source. */
+  logicalIndex: number;
+  isClone: boolean;
+  key: string;
+};
+
+/**
+ * Infinite snap carousel: [last-clone, …promos, first-clone].
+ * Jumping off clones keeps scroll continuous while peeks wrap at both ends.
+ */
+function buildCarouselSlides(): CarouselSlide[] {
+  if (PROMOS.length <= 1) {
+    return PROMOS.map((promo, index) => ({
+      promo,
+      domIndex: index,
+      logicalIndex: index,
+      isClone: false,
+      key: promo.tag,
+    }));
+  }
+
+  const last = PROMOS[PROMOS.length - 1]!;
+  const first = PROMOS[0]!;
+  const slides: CarouselSlide[] = [
+    {
+      promo: last,
+      domIndex: 0,
+      logicalIndex: PROMOS.length - 1,
+      isClone: true,
+      key: `clone-start-${last.tag}`,
+    },
+  ];
+
+  PROMOS.forEach((promo, index) => {
+    slides.push({
+      promo,
+      domIndex: index + 1,
+      logicalIndex: index,
+      isClone: false,
+      key: promo.tag,
+    });
+  });
+
+  slides.push({
+    promo: first,
+    domIndex: PROMOS.length + 1,
+    logicalIndex: 0,
+    isClone: true,
+    key: `clone-end-${first.tag}`,
+  });
+
+  return slides;
+}
+
+function closestSlideIndex(track: HTMLDivElement): number {
+  const slides = Array.from(track.children) as HTMLElement[];
+  const center = track.scrollLeft + track.clientWidth / 2;
+  let closest = 0;
+  let minDistance = Number.POSITIVE_INFINITY;
+
+  slides.forEach((slide, index) => {
+    const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+    const distance = Math.abs(center - slideCenter);
+    if (distance < minDistance) {
+      minDistance = distance;
+      closest = index;
+    }
+  });
+
+  return closest;
+}
+
+const CAROUSEL_SLIDES = buildCarouselSlides();
+
+function logicalIndexFromDom(domIndex: number): number {
+  if (PROMOS.length <= 1) return 0;
+  if (domIndex === 0) return PROMOS.length - 1;
+  if (domIndex === PROMOS.length + 1) return 0;
+  return domIndex - 1;
+}
+
 function ShopCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const reducedMotion = useRef(false);
+  const jumpingRef = useRef(false);
+  const activeDomRef = useRef(PROMOS.length > 1 ? 1 : 0);
+  const looped = PROMOS.length > 1;
 
   useEffect(() => {
     reducedMotion.current = window.matchMedia(
@@ -143,54 +233,98 @@ function ShopCarousel() {
     ).matches;
   }, []);
 
-  const scrollToIndex = useCallback((index: number) => {
+  const jumpToDomIndex = useCallback((domIndex: number) => {
     const track = trackRef.current;
     if (!track) return;
-    const slide = track.children[index] as HTMLElement | undefined;
+    const slide = track.children[domIndex] as HTMLElement | undefined;
     if (!slide) return;
-    track.scrollTo({ left: slide.offsetLeft, behavior: "smooth" });
-    setActiveIndex(index);
+
+    jumpingRef.current = true;
+    track.classList.remove("scroll-smooth");
+    track.scrollLeft = slide.offsetLeft;
+    activeDomRef.current = domIndex;
+    // Force layout so restoring scroll-smooth does not animate the jump.
+    void track.offsetHeight;
+    track.classList.add("scroll-smooth");
+    requestAnimationFrame(() => {
+      jumpingRef.current = false;
+    });
   }, []);
+
+  const scrollToDomIndex = useCallback((domIndex: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const slide = track.children[domIndex] as HTMLElement | undefined;
+    if (!slide) return;
+    activeDomRef.current = domIndex;
+    track.scrollTo({ left: slide.offsetLeft, behavior: "smooth" });
+  }, []);
+
+  // Land on the first real slide (after the leading clone) before paint flashes.
+  useLayoutEffect(() => {
+    if (!looped) return;
+    jumpToDomIndex(1);
+  }, [jumpToDomIndex, looped]);
 
   const goNext = useCallback(() => {
-    scrollToIndex((activeIndex + 1) % PROMOS.length);
-  }, [activeIndex, scrollToIndex]);
+    if (!looped) return;
+    scrollToDomIndex(activeDomRef.current + 1);
+  }, [looped, scrollToDomIndex]);
 
   const goPrev = useCallback(() => {
-    scrollToIndex((activeIndex - 1 + PROMOS.length) % PROMOS.length);
-  }, [activeIndex, scrollToIndex]);
+    if (!looped) return;
+    scrollToDomIndex(activeDomRef.current - 1);
+  }, [looped, scrollToDomIndex]);
 
   useEffect(() => {
-    if (paused || reducedMotion.current) return;
+    if (paused || reducedMotion.current || !looped) return;
     const timer = window.setInterval(goNext, AUTO_SCROLL_MS);
     return () => window.clearInterval(timer);
-  }, [goNext, paused]);
+  }, [goNext, paused, looped]);
 
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
 
-    const onScroll = () => {
-      const slides = Array.from(track.children) as HTMLElement[];
-      const center = track.scrollLeft + track.clientWidth / 2;
-      let closest = 0;
-      let minDistance = Number.POSITIVE_INFINITY;
+    const syncFromScroll = () => {
+      if (jumpingRef.current) return;
 
-      slides.forEach((slide, index) => {
-        const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
-        const distance = Math.abs(center - slideCenter);
-        if (distance < minDistance) {
-          minDistance = distance;
-          closest = index;
-        }
-      });
-
-      setActiveIndex(closest);
+      const closest = closestSlideIndex(track);
+      activeDomRef.current = closest;
+      setActiveIndex(logicalIndexFromDom(closest));
     };
 
-    track.addEventListener("scroll", onScroll, { passive: true });
-    return () => track.removeEventListener("scroll", onScroll);
-  }, []);
+    const settleClones = () => {
+      if (jumpingRef.current || !looped) return;
+
+      const closest = closestSlideIndex(track);
+      // Leading clone of last → jump to real last; trailing clone of first → real first.
+      if (closest === 0) {
+        jumpToDomIndex(PROMOS.length);
+        setActiveIndex(PROMOS.length - 1);
+      } else if (closest === PROMOS.length + 1) {
+        jumpToDomIndex(1);
+        setActiveIndex(0);
+      }
+    };
+
+    track.addEventListener("scroll", syncFromScroll, { passive: true });
+    track.addEventListener("scrollend", settleClones);
+    // Fallback when scrollend is unavailable (older Safari).
+    let settleTimer = 0;
+    const onScrollSettleFallback = () => {
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(settleClones, 120);
+    };
+    track.addEventListener("scroll", onScrollSettleFallback, { passive: true });
+
+    return () => {
+      track.removeEventListener("scroll", syncFromScroll);
+      track.removeEventListener("scrollend", settleClones);
+      track.removeEventListener("scroll", onScrollSettleFallback);
+      window.clearTimeout(settleTimer);
+    };
+  }, [jumpToDomIndex, looped]);
 
   return (
     <div
@@ -206,24 +340,25 @@ function ShopCarousel() {
         aria-roledescription="carousel"
         aria-label="Shop promotions"
       >
-        {PROMOS.map((promo, index) => (
+        {CAROUSEL_SLIDES.map((slide) => (
           <article
-            key={promo.tag}
+            key={slide.key}
             aria-roledescription="slide"
-            aria-label={`${index + 1} of ${PROMOS.length}`}
+            aria-label={`${slide.logicalIndex + 1} of ${PROMOS.length}`}
+            aria-hidden={slide.isClone || undefined}
             className="relative h-[min(600px,70vw)] min-h-[360px] w-[calc(100%-48px)] shrink-0 snap-center overflow-hidden bg-[#1f1f21] sm:min-h-[420px] sm:w-[min(1280px,calc(100vw-120px))] lg:h-[600px]"
           >
             <img
               alt=""
-              src={promo.image}
+              src={slide.promo.image}
               className="pointer-events-none absolute inset-0 size-full object-cover"
             />
             <div className="absolute inset-x-0 bottom-0 flex flex-col items-start gap-2 p-5 sm:p-8">
-              <p className="text-base font-medium leading-[1.6] text-lime">
-                {promo.tag}
+              <p className="text-base font-medium leading-[1.6] text-black">
+                {slide.promo.tag}
               </p>
-              <h3 className="font-display text-[clamp(36px,6vw,62px)] uppercase leading-none text-white">
-                {promo.title.map((line) => (
+              <h3 className="font-display text-[clamp(36px,6vw,62px)] uppercase leading-none text-black">
+                {slide.promo.title.map((line) => (
                   <span key={line} className="block">
                     {line}
                   </span>
@@ -285,18 +420,18 @@ export function ShopSection() {
             EVERYTHING YOU NEED
           </p>
           <div className="relative w-full min-w-0 lg:min-h-[115.375px]">
-            <div className="min-w-0 lg:absolute lg:inset-y-0 lg:left-[430px] lg:right-0 lg:overflow-hidden">
+            <div className="min-w-0 lg:absolute lg:inset-y-0 lg:left-[470px] lg:right-0">
               <p
                 className={cn(
                   "max-w-full min-w-0 font-display whitespace-nowrap uppercase leading-none text-lime",
                   SHOP_HEADLINE_MOBILE,
-                  "lg:absolute lg:right-0 lg:top-[-0.13px] lg:w-[min(849px,100%)] lg:max-w-none lg:text-right lg:text-[clamp(36px,calc((100vw-var(--space-gutter)*2-430px)/8.5),115.375px)]",
+                  "lg:absolute lg:right-0 lg:top-[-0.13px] lg:w-full lg:max-w-none lg:text-right lg:text-[clamp(36px,calc((100vw-var(--space-gutter)*2-470px)/10),100px)]",
                 )}
               >
                 TO MOVE BETTER
               </p>
             </div>
-            <p className="mt-4 max-w-[321px] break-words text-[13px] font-medium leading-[1.6] text-[#fcfff7] lg:absolute lg:left-[109px] lg:top-1/2 lg:z-[1] lg:mt-0 lg:w-[321px] lg:max-w-[321px] lg:-translate-y-1/2">
+            <p className="mt-4 max-w-[321px] break-words text-[13px] font-medium leading-[1.6] text-[#fcfff7] lg:absolute lg:left-[109px] lg:top-1/2 lg:z-[1] lg:mt-0 lg:w-[300px] lg:max-w-[300px] lg:-translate-y-1/2">
               From activewear and equipment to accessories and everyday fitness
               essentials—shop everything you need to move, train and live
               better, all in one place.
