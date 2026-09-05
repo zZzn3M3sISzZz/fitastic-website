@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.fitastic.mobile",
+      "sha256_cert_fingerprints": [
+        "20:DB:3F:02:D4:DF:18:06:82:1F:06:08:AA:4C:79:E3:17:32:A1:A5:39:1B:89:9D:59:C9:14:23:8C:BE:08:BF",
+        "23:D8:4A:63:43:99:43:DF:67:BD:70:49:26:65:FF:76:EA:D6:FC:0E:91:A3:2F:DD:E9:6B:20:45:D7:1D:2E:5B"
+      ]
+    }
+  }
+]
