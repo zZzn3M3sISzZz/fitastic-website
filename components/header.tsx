@@ -1,24 +1,52 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { PillButton } from "@/components/pill-button";
 import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/cn";
 
-const NAV = [
-  { href: "/#coming", label: "What’s Coming" },
+const COMING_ITEMS = [
   { href: "/#morgan", label: "Morgan" },
   { href: "/#leaderboards", label: "Leaderboards" },
   { href: "/#loop", label: "Loop" },
   { href: "/#fitness-on-demand", label: "On Demand" },
+] as const;
+
+const NAV = [
   { href: "/#shop", label: "Shop" },
   { href: "/#faqs", label: "FAQs" },
-  { href: "/resources", label: "Resources" },
-];
+  { href: "/resources", label: "Business" },
+] as const;
+
+function Chevron({ open }: { open: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 12 12"
+      aria-hidden
+      className={cn(
+        "size-3 shrink-0 text-white/70 transition-transform duration-tap",
+        open && "rotate-180",
+      )}
+    >
+      <path
+        d="M2.5 4.25 6 7.75l3.5-3.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [comingOpen, setComingOpen] = useState(false);
+  const [mobileComingOpen, setMobileComingOpen] = useState(false);
+  const comingRef = useRef<HTMLDivElement>(null);
+  const comingMenuId = useId();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -32,6 +60,28 @@ export function Header() {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [open]);
+
+  useEffect(() => {
+    if (!comingOpen) return;
+    const onPointerDown = (event: PointerEvent) => {
+      if (!comingRef.current?.contains(event.target as Node)) {
+        setComingOpen(false);
+      }
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setComingOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [comingOpen]);
+
+  useEffect(() => {
+    if (!open) setMobileComingOpen(false);
   }, [open]);
 
   return (
@@ -55,6 +105,44 @@ export function Header() {
             </span>
           </a>
           <nav aria-label="Primary" className="hidden items-center xl:flex">
+            <div
+              ref={comingRef}
+              className="relative"
+              onMouseEnter={() => setComingOpen(true)}
+              onMouseLeave={() => setComingOpen(false)}
+            >
+              <button
+                type="button"
+                className="inline-flex items-center gap-1.5 px-2.5 py-2 text-[15px] font-medium text-white transition-opacity duration-tap hover:opacity-70 xl:px-3"
+                aria-expanded={comingOpen}
+                aria-haspopup="menu"
+                aria-controls={comingMenuId}
+                onClick={() => setComingOpen((value) => !value)}
+              >
+                What’s Coming
+                <Chevron open={comingOpen} />
+              </button>
+              <div
+                id={comingMenuId}
+                role="menu"
+                hidden={!comingOpen}
+                className="absolute left-0 top-full z-50 min-w-[200px] pt-2"
+              >
+                <div className="rounded-2xl border border-white/15 bg-canvas py-2 shadow-lg">
+                  {COMING_ITEMS.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      role="menuitem"
+                      className="block px-4 py-2.5 text-[15px] font-medium text-white transition-opacity duration-tap hover:opacity-70"
+                      onClick={() => setComingOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
             {NAV.map((item) => (
               <a
                 key={item.href}
@@ -109,6 +197,31 @@ export function Header() {
         className="border-t border-line bg-canvas px-gutter py-6 xl:hidden"
       >
         <nav aria-label="Mobile" className="flex flex-col gap-2">
+          <div>
+            <button
+              type="button"
+              className="flex min-h-11 w-full items-center justify-between text-base font-medium text-white"
+              aria-expanded={mobileComingOpen}
+              onClick={() => setMobileComingOpen((value) => !value)}
+            >
+              What’s Coming
+              <Chevron open={mobileComingOpen} />
+            </button>
+            {mobileComingOpen ? (
+              <div className="mb-1 ml-3 flex flex-col border-l border-white/15 pl-3">
+                {COMING_ITEMS.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className="flex min-h-11 items-center text-base font-medium text-white/85"
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            ) : null}
+          </div>
           {NAV.map((item) => (
             <a
               key={item.href}

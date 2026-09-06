@@ -1,7 +1,13 @@
 import { Header } from "@/components/header";
+import { ResourcesEcosystemSection } from "@/components/resources/resources-ecosystem-section";
+import { ResourcesExpertiseSection } from "@/components/resources/resources-expertise-section";
+import { ResourcesHeroSection } from "@/components/resources/resources-hero-section";
+import { ResourcesIndexSection } from "@/components/resources/resources-index-section";
+import { ResourcesMarketplaceSection } from "@/components/resources/resources-marketplace-section";
 import { ResourcesPartnershipSection } from "@/components/resources/resources-partnership-section";
 import { ResourcesSlide } from "@/components/resources/resources-slide";
-import { ResourcesWorkflowSection } from "@/components/resources/resources-workflow-section";
+import { ResourcesTwoWaysSection } from "@/components/resources/resources-two-ways-section";
+import { ResourcesWhyPartnerSection } from "@/components/resources/resources-why-partner-section";
 import { SiteFooter } from "@/components/site-footer";
 import type { Metadata } from "next";
 
@@ -22,40 +28,15 @@ export default function ResourcesPage() {
       </a>
       <div id="top">
         <Header />
-        <main>
-          <ResourcesSlide
-            id="hero"
-            src="/assets/resources/01-hero.png"
-            alt="Fitastic marketplace partnership hero with contact details"
-            className="pt-[88px] lg:pt-[100px]"
-          />
+        <main className="resources-page bg-black">
+          <ResourcesHeroSection />
           <ResourcesPartnershipSection />
-          <ResourcesSlide
-            id="index"
-            src="/assets/resources/03-index.png"
-            alt="Index — discover how your brand can grow with Fitastic"
-          />
-          <ResourcesSlide
-            id="ecosystem"
-            src="/assets/resources/04-ecosystem.png"
-            alt="The Fitastic Ecosystem"
-          />
-          <ResourcesWorkflowSection />
-          <ResourcesSlide
-            id="two-ways"
-            src="/assets/resources/06-two-ways.png"
-            alt="Two Ways for Businesses to Grow"
-          />
-          <ResourcesSlide
-            id="expertise"
-            src="/assets/resources/07-expertise.png"
-            alt="Turn Your Expertise Into Income"
-          />
-          <ResourcesSlide
-            id="why-partner"
-            src="/assets/resources/08-why-partner.png"
-            alt="Why Partner With Fitastic?"
-          />
+          <ResourcesIndexSection />
+          <ResourcesEcosystemSection />
+          <ResourcesMarketplaceSection />
+          <ResourcesTwoWaysSection />
+          <ResourcesExpertiseSection />
+          <ResourcesWhyPartnerSection />
           <ResourcesSlide
             id="community"
             src="/assets/resources/09-community.png"

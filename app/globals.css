@@ -194,114 +194,594 @@ body {
   transform: translate3d(0, 0, 0) scaleY(1);
 }
 
-/* Resources — partnership diagram */
+.resources-contact-card {
+  opacity: 0;
+  transform: translate3d(0, 36px, 0) scale(0.92);
+  filter: blur(6px);
+  transform-origin: bottom right;
+}
+
+.resources-contact-card.is-in {
+  animation: resources-contact-pop 780ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
+}
+
+/* Resources page — soft fades between stacked sections */
+.resources-page > section {
+  position: relative;
+  isolation: isolate;
+}
+
+.resources-page > section::before,
+.resources-page > section::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  height: clamp(64px, 12vh, 160px);
+}
+
+.resources-page > section:not(:first-child)::before {
+  top: 0;
+  background: linear-gradient(
+    to bottom,
+    #000 0%,
+    rgba(0, 0, 0, 0.72) 28%,
+    rgba(0, 0, 0, 0.28) 62%,
+    transparent 100%
+  );
+}
+
+.resources-page > section:not(:last-child)::after {
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    #000 0%,
+    rgba(0, 0, 0, 0.72) 28%,
+    rgba(0, 0, 0, 0.28) 62%,
+    transparent 100%
+  );
+}
+
+.resources-page > section:last-child::after {
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    var(--color-canvas) 0%,
+    rgba(20, 21, 23, 0.75) 35%,
+    transparent 100%
+  );
+}
+
+@keyframes resources-contact-pop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 36px, 0) scale(0.92);
+    filter: blur(6px);
+  }
+  70% {
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
 @property --resources-reveal {
   syntax: "<angle>";
   inherits: false;
   initial-value: 0deg;
 }
 
-.resources-partnership-frame {
-  max-height: calc(100svh - 7.5rem);
-}
-
-.resources-partnership-graphic {
+/* Resources — partnership wheel (animated HTML) */
+.resources-partnership-hub {
   opacity: 0;
-  --resources-reveal: 0deg;
-  -webkit-mask-image: conic-gradient(
-    from -90deg,
-    #000 0deg,
-    #000 var(--resources-reveal),
-    transparent var(--resources-reveal)
-  );
-  mask-image: conic-gradient(
-    from -90deg,
-    #000 0deg,
-    #000 var(--resources-reveal),
-    transparent var(--resources-reveal)
-  );
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
+  transform: translate(-50%, -50%) scale(0.9);
 }
 
-.resources-partnership-stage.is-active .resources-partnership-graphic {
-  opacity: 1;
-  animation: resources-wheel-draw 1.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+.resources-partnership.is-in .resources-partnership-hub {
+  animation: resources-partnership-hub-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-@keyframes resources-wheel-draw {
-  0% {
-    opacity: 0.35;
-    --resources-reveal: 0deg;
-    transform: scale(0.96);
-  }
-  12% {
+.resources-partnership-ring-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transform-origin: 50% 50%;
+  transform: rotate(-90deg);
+  transform-box: fill-box;
+}
+
+.resources-partnership.is-in .resources-partnership-ring-path {
+  animation: resources-partnership-ring-draw 1.35s cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+}
+
+.resources-partnership-node {
+  opacity: 0;
+}
+
+.resources-partnership.is-in .resources-partnership-node {
+  animation: resources-partnership-node-in 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(220ms + var(--i) * 100ms);
+}
+
+@keyframes resources-partnership-hub-in {
+  to {
     opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes resources-partnership-ring-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes resources-partnership-node-in {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.resources-index-title,
+.resources-index-sub {
+  opacity: 0;
+  transform: translate3d(-28px, 0, 0);
+}
+
+.resources-index.is-in .resources-index-title {
+  animation: resources-slide-left 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.resources-index.is-in .resources-index-sub {
+  animation: resources-slide-left 560ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+}
+
+.resources-index-item {
+  opacity: 0;
+  transform: translate3d(-40px, 0, 0);
+}
+
+.resources-index.is-in .resources-index-item {
+  animation: resources-slide-left 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(140ms + var(--i) * 90ms);
+}
+
+.resources-index-dot {
+  opacity: 0;
+  transform: scale(0.2);
+}
+
+.resources-index.is-in .resources-index-dot {
+  animation:
+    resources-dot-flicker 2.4s ease-in-out both,
+    resources-dot-pulse 1.8s ease-in-out infinite;
+  animation-delay:
+    calc(420ms + var(--d) * 70ms),
+    calc(900ms + var(--d) * 70ms);
+}
+
+.resources-index-connecting {
+  opacity: 0;
+  letter-spacing: 0.35em;
+}
+
+.resources-index.is-in .resources-index-connecting {
+  animation: resources-connecting-in 700ms ease-out both;
+  animation-delay: calc(700ms + var(--d, 0) * 80ms);
+}
+
+@keyframes resources-slide-left {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes resources-dot-flicker {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+  55% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  75% {
+    opacity: 1;
+    transform: scale(1.15);
   }
   100% {
-    opacity: 1;
-    --resources-reveal: 360deg;
+    opacity: 0.9;
     transform: scale(1);
   }
 }
 
-/* Resources — marketplace workflow graph */
-.resources-workflow-stage {
-  position: relative;
-}
-
-.resources-workflow-image {
-  opacity: 0.35;
-  transform: scale(1.02);
-  filter: saturate(0.7);
-  transition:
-    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 1100ms ease;
-  clip-path: circle(12% at 42% 48%);
-}
-
-.resources-workflow-stage.is-active .resources-workflow-image {
-  opacity: 1;
-  transform: scale(1);
-  filter: saturate(1);
-  clip-path: circle(150% at 42% 48%);
-  transition:
-    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 1100ms ease,
-    clip-path 1400ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.resources-workflow-pulse {
-  background: radial-gradient(
-    circle at 42% 48%,
-    rgba(187, 242, 71, 0.18),
-    transparent 34%
-  );
-  opacity: 0;
-  mix-blend-mode: screen;
-}
-
-.resources-workflow-stage.is-active .resources-workflow-pulse {
-  animation: resources-workflow-pulse 1.8s ease-out 0.2s both;
-}
-
-@keyframes resources-workflow-pulse {
-  0% {
-    opacity: 0;
-    transform: scale(0.6);
+@keyframes resources-dot-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
   }
-  35% {
+  50% {
     opacity: 1;
   }
-  100% {
-    opacity: 0;
-    transform: scale(1.35);
+}
+
+@keyframes resources-connecting-in {
+  to {
+    opacity: 0.85;
+    letter-spacing: 0.28em;
+  }
+}
+
+.resources-ecosystem-card {
+  opacity: 0;
+  transform: translate3d(0, 40px, 0) scale(0.96);
+}
+
+.resources-ecosystem.is-in .resources-ecosystem-card {
+  animation: resources-card-up 640ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(120ms + var(--i) * 160ms);
+}
+
+@keyframes resources-card-up {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* Resources — marketplace (animated HTML, Figma 381:885) */
+.resources-marketplace-title,
+.resources-marketplace-sub {
+  opacity: 0;
+  transform: translate3d(-28px, 0, 0);
+}
+
+.resources-marketplace.is-in .resources-marketplace-title {
+  animation: resources-slide-left 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.resources-marketplace.is-in .resources-marketplace-sub {
+  animation: resources-slide-left 560ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both;
+}
+
+.resources-marketplace-bullet {
+  opacity: 0;
+  transform: translate3d(-24px, 0, 0);
+}
+
+.resources-marketplace.is-in .resources-marketplace-bullet {
+  animation: resources-slide-left 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(160ms + var(--i) * 110ms);
+}
+
+.resources-marketplace-hub {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.85);
+}
+
+.resources-marketplace.is-in .resources-marketplace-hub {
+  animation: resources-hub-in 480ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
+}
+
+.resources-marketplace-link {
+  stroke: rgba(188, 192, 197, 0.85);
+  stroke-width: 0.18;
+  fill: none;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  opacity: 0;
+}
+
+.resources-marketplace.is-in .resources-marketplace-link {
+  animation: resources-link-draw 780ms ease-out both;
+  animation-delay: calc(var(--i) * 90ms + 280ms);
+}
+
+.resources-marketplace-cat {
+  opacity: 0;
+  transform: translate3d(28px, -50%, 0) scale(0.94);
+}
+
+.resources-marketplace-cat--top {
+  transform: translate3d(28px, 0, 0) scale(0.94);
+}
+
+.resources-marketplace-cat--bottom {
+  transform: translate3d(28px, -100%, 0) scale(0.94);
+}
+
+.resources-marketplace.is-in .resources-marketplace-cat {
+  animation: resources-cat-out 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i) * 90ms + 380ms);
+}
+
+.resources-marketplace.is-in .resources-marketplace-cat--top {
+  animation-name: resources-cat-out-top;
+}
+
+.resources-marketplace.is-in .resources-marketplace-cat--bottom {
+  animation-name: resources-cat-out-bottom;
+}
+
+@keyframes resources-hub-in {
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes resources-link-draw {
+  to {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes resources-cat-out {
+  to {
+    opacity: 1;
+    transform: translate3d(0, -50%, 0) scale(1);
+  }
+}
+
+@keyframes resources-cat-out-top {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes resources-cat-out-bottom {
+  to {
+    opacity: 1;
+    transform: translate3d(0, -100%, 0) scale(1);
+  }
+}
+
+@media (max-width: 767px) {
+  .resources-marketplace-hub {
+    transform: none;
+  }
+
+  .resources-marketplace.is-in .resources-marketplace-hub {
+    animation-name: resources-hub-in-mobile;
+  }
+
+  @keyframes resources-hub-in-mobile {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .resources-marketplace-cat {
+    transform: translate3d(0, 16px, 0);
+  }
+
+  .resources-marketplace.is-in .resources-marketplace-cat {
+    animation-name: resources-cat-out-mobile;
+  }
+
+  @keyframes resources-cat-out-mobile {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* Resources — two ways */
+.resources-two-ways-title,
+.resources-two-ways-sub {
+  opacity: 0;
+  transform: translate3d(-28px, 0, 0);
+}
+
+.resources-two-ways.is-in .resources-two-ways-title {
+  animation: resources-slide-left 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.resources-two-ways.is-in .resources-two-ways-sub {
+  animation: resources-slide-left 560ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both;
+}
+
+.resources-two-ways-hub {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+.resources-two-ways.is-in .resources-two-ways-hub {
+  animation: resources-two-ways-hub-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.resources-two-ways-link {
+  stroke: rgba(188, 192, 197, 0.9);
+  stroke-width: 0.22;
+  fill: none;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  opacity: 0;
+}
+
+.resources-two-ways.is-in .resources-two-ways-link {
+  animation: resources-link-draw 780ms ease-out both;
+  animation-delay: calc(var(--i) * 100ms + 200ms);
+}
+
+.resources-two-ways-option {
+  opacity: 0;
+  transform: translate(-50%, 28px);
+}
+
+.resources-two-ways.is-in .resources-two-ways-option {
+  animation: resources-two-ways-option-in 640ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(280ms + var(--i) * 140ms);
+}
+
+.resources-two-ways-table {
+  opacity: 0;
+  transform: translate3d(0, 40px, 0);
+}
+
+.resources-two-ways.is-in .resources-two-ways-table {
+  animation: resources-table-up 720ms cubic-bezier(0.22, 1, 0.36, 1) 480ms both;
+}
+
+@keyframes resources-two-ways-hub-in {
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes resources-two-ways-option-in {
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes resources-table-up {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Resources — expertise chart */
+.resources-expertise-title,
+.resources-expertise-sub {
+  opacity: 0;
+  transform: translate3d(-28px, 0, 0);
+}
+
+.resources-expertise.is-in .resources-expertise-title {
+  animation: resources-slide-left 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.resources-expertise.is-in .resources-expertise-sub {
+  animation: resources-slide-left 560ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both;
+}
+
+.resources-expertise-hub {
+  opacity: 0;
+  transform: translate3d(-24px, 0, 0) scale(0.94);
+}
+
+.resources-expertise.is-in .resources-expertise-hub {
+  animation: resources-expertise-hub-in 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(120ms + var(--i) * 140ms);
+}
+
+.resources-expertise-link {
+  stroke: rgba(188, 192, 197, 0.9);
+  stroke-width: 0.22;
+  fill: none;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  opacity: 0;
+}
+
+.resources-expertise.is-in .resources-expertise-link {
+  animation: resources-link-draw 780ms ease-out both;
+  animation-delay: calc(var(--i) * 80ms + 280ms);
+}
+
+.resources-expertise-cat {
+  opacity: 0;
+  transform: translate3d(28px, -50%, 0) scale(0.94);
+}
+
+.resources-expertise.is-in .resources-expertise-cat {
+  animation: resources-cat-out 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i) * 80ms + 360ms);
+}
+
+@keyframes resources-expertise-hub-in {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* Resources — why partner cards */
+.resources-why-partner-title,
+.resources-why-partner-sub,
+.resources-why-partner-intro {
+  opacity: 0;
+  transform: translate3d(-28px, 0, 0);
+}
+
+.resources-why-partner.is-in .resources-why-partner-title {
+  animation: resources-slide-left 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.resources-why-partner.is-in .resources-why-partner-sub {
+  animation: resources-slide-left 560ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both;
+}
+
+.resources-why-partner.is-in .resources-why-partner-intro {
+  animation: resources-slide-left 620ms cubic-bezier(0.22, 1, 0.36, 1) 160ms both;
+}
+
+.resources-why-partner-logo,
+.resources-why-partner-circles {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.resources-why-partner.is-in .resources-why-partner-circles {
+  animation: resources-why-mark-in 900ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+}
+
+.resources-why-partner.is-in .resources-why-partner-logo {
+  animation: resources-why-logo-in 900ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
+}
+
+.resources-why-partner-card {
+  opacity: 0;
+  transform: translate3d(36px, 24px, 0) scale(0.96);
+}
+
+.resources-why-partner.is-in .resources-why-partner-card {
+  animation: resources-why-card-in 640ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(220ms + var(--i) * 120ms);
+}
+
+@keyframes resources-why-card-in {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes resources-why-mark-in {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes resources-why-logo-in {
+  to {
+    opacity: 0.7;
+    transform: scale(1);
   }
 }
 
@@ -357,16 +837,109 @@ body {
     transition: none !important;
   }
 
-  .resources-partnership-graphic,
-  .resources-workflow-image,
-  .resources-workflow-pulse {
+  .resources-partnership-hub,
+  .resources-partnership-ring-path,
+  .resources-partnership-node,
+  .resources-contact-card,
+  .resources-index-title,
+  .resources-index-sub,
+  .resources-index-item,
+  .resources-index-dot,
+  .resources-index-connecting,
+  .resources-ecosystem-card,
+  .resources-marketplace-title,
+  .resources-marketplace-sub,
+  .resources-marketplace-bullet,
+  .resources-marketplace-hub,
+  .resources-marketplace-link,
+  .resources-marketplace-cat,
+  .resources-two-ways-title,
+  .resources-two-ways-sub,
+  .resources-two-ways-hub,
+  .resources-two-ways-option,
+  .resources-two-ways-table,
+  .resources-two-ways-link,
+  .resources-expertise-title,
+  .resources-expertise-sub,
+  .resources-expertise-hub,
+  .resources-expertise-link,
+  .resources-expertise-cat,
+  .resources-why-partner-title,
+  .resources-why-partner-sub,
+  .resources-why-partner-intro,
+  .resources-why-partner-logo,
+  .resources-why-partner-circles,
+  .resources-why-partner-card {
     animation: none !important;
     opacity: 1 !important;
-    transform: none !important;
     filter: none !important;
     clip-path: none !important;
     transition: none !important;
     -webkit-mask-image: none !important;
     mask-image: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  .resources-partnership-hub {
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .resources-partnership-node {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .resources-marketplace-hub {
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .resources-marketplace-cat,
+  .resources-expertise-cat {
+    transform: translate3d(0, -50%, 0) !important;
+  }
+
+  .resources-marketplace-cat--top {
+    transform: none !important;
+  }
+
+  .resources-marketplace-cat--bottom {
+    transform: translate3d(0, -100%, 0) !important;
+  }
+
+  .resources-two-ways-hub {
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .resources-two-ways-link {
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  .resources-two-ways-option {
+    transform: translate(-50%, 0) !important;
+  }
+
+  .resources-two-ways-table,
+  .resources-expertise-hub,
+  .resources-why-partner-card,
+  .resources-why-partner-intro {
+    transform: none !important;
+  }
+
+  .resources-why-partner-logo,
+  .resources-why-partner-circles {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .resources-why-partner-logo {
+    opacity: 0.7 !important;
+  }
+
+  @media (max-width: 767px) {
+    .resources-marketplace-hub,
+    .resources-marketplace-cat {
+      transform: none !important;
+    }
   }
 }
