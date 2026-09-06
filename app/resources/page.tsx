@@ -1,11 +1,13 @@
 import { Header } from "@/components/header";
+import { ResourcesCommunitySection } from "@/components/resources/resources-community-section";
+import { ResourcesCrmSection } from "@/components/resources/resources-crm-section";
+import { ResourcesCtaSection } from "@/components/resources/resources-cta-section";
 import { ResourcesEcosystemSection } from "@/components/resources/resources-ecosystem-section";
 import { ResourcesExpertiseSection } from "@/components/resources/resources-expertise-section";
 import { ResourcesHeroSection } from "@/components/resources/resources-hero-section";
 import { ResourcesIndexSection } from "@/components/resources/resources-index-section";
 import { ResourcesMarketplaceSection } from "@/components/resources/resources-marketplace-section";
 import { ResourcesPartnershipSection } from "@/components/resources/resources-partnership-section";
-import { ResourcesSlide } from "@/components/resources/resources-slide";
 import { ResourcesTwoWaysSection } from "@/components/resources/resources-two-ways-section";
 import { ResourcesWhyPartnerSection } from "@/components/resources/resources-why-partner-section";
 import { SiteFooter } from "@/components/site-footer";
@@ -37,21 +39,9 @@ export default function ResourcesPage() {
           <ResourcesTwoWaysSection />
           <ResourcesExpertiseSection />
           <ResourcesWhyPartnerSection />
-          <ResourcesSlide
-            id="community"
-            src="/assets/resources/09-community.png"
-            alt="A Community Where Opportunities Move"
-          />
-          <ResourcesSlide
-            id="crm"
-            src="/assets/resources/10-crm.png"
-            alt="The Strategic Core | CRM"
-          />
-          <ResourcesSlide
-            id="cta"
-            src="/assets/resources/11-cta.png"
-            alt="Ready to Put Your Products in Front of the Right Audience?"
-          />
+          <ResourcesCommunitySection />
+          <ResourcesCrmSection />
+          <ResourcesCtaSection />
         </main>
         <SiteFooter />
       </div>

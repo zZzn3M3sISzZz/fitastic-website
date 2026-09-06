@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { cn } from "@/lib/cn";
 import { useInView } from "@/lib/use-in-view";
 
@@ -46,6 +47,34 @@ const CARDS = [
   },
 ] as const;
 
+function CardBody({
+  num,
+  title,
+  body,
+}: {
+  num: string;
+  title: string;
+  body: string;
+}) {
+  return (
+    <>
+      <div className="flex items-start gap-2">
+        <span className="text-[clamp(16px,1.4vw,25px)] font-medium tracking-[-0.02em] text-white">
+          {num}
+        </span>
+        <div className="border-l-[2px] border-[#bbf247] pl-3">
+          <p className="text-[clamp(14px,1.35vw,24px)] font-medium leading-tight tracking-[-0.02em] text-white">
+            {title}
+          </p>
+        </div>
+      </div>
+      <p className="mt-2 text-[clamp(12px,1.05vw,18px)] font-light leading-snug tracking-[-0.03em] text-white/90">
+        {body}
+      </p>
+    </>
+  );
+}
+
 export function ResourcesWhyPartnerSection() {
   const { ref, inView } = useInView<HTMLElement>({ threshold: 0.14 });
 
@@ -58,75 +87,122 @@ export function ResourcesWhyPartnerSection() {
         inView && "is-in",
       )}
     >
-      <div className="relative mx-auto aspect-[1920/1080] w-full max-w-[1920px]">
-        <img
-          src="/assets/resources/why-partner-bg.png"
-          alt=""
-          width={1920}
-          height={1080}
-          className="absolute inset-0 size-full object-cover object-bottom brightness-[0.6] blur-sm scale-105"
-          aria-hidden
-        />
+      <div className="relative mx-auto w-full max-w-[1920px]">
+        {/* Desktop / tablet */}
+        <div className="resources-why-partner-stage relative hidden aspect-[1920/1080] w-full md:block">
+          <img
+            src="/assets/resources/why-partner-bg.png"
+            alt=""
+            width={1920}
+            height={1080}
+            className="absolute inset-0 size-full object-cover object-bottom brightness-[0.6] blur-sm scale-105"
+            aria-hidden
+          />
 
-        <img
-          src="/assets/resources/why-partner-circles.png"
-          alt=""
-          width={1600}
-          height={867}
-          className="resources-why-partner-circles pointer-events-none absolute -right-[4%] -top-[8%] z-[1] w-[78%] max-w-none"
-          aria-hidden
-        />
+          <img
+            src="/assets/resources/why-partner-circles.png"
+            alt=""
+            width={1600}
+            height={867}
+            className="resources-why-partner-circles pointer-events-none absolute -right-[4%] -top-[8%] z-[1] w-[78%] max-w-none"
+            aria-hidden
+          />
 
-        <div className="absolute left-[10%] top-[8%] z-10 w-[min(42%,760px)]">
-          <h2 className="resources-why-partner-title text-[clamp(36px,4vw,76px)] font-medium leading-[1.02] tracking-[-0.03em] text-white">
-            Why Partner With Fitastic?
-          </h2>
-          <p className="resources-why-partner-sub mt-[clamp(10px,1vw,18px)] text-[clamp(16px,1.35vw,26px)] font-light leading-snug text-[#bcbaba]">
-            Fitastic becomes another growth engine for your brand.
-          </p>
+          <div className="absolute left-[10%] top-[8%] z-10 w-[min(42%,760px)]">
+            <h2 className="resources-why-partner-title text-[clamp(36px,4vw,76px)] font-medium leading-[1.02] tracking-[-0.03em] text-white">
+              Why Partner With Fitastic?
+            </h2>
+            <p className="resources-why-partner-sub mt-[clamp(10px,1vw,18px)] text-[clamp(16px,1.35vw,26px)] font-light leading-snug text-[#bcbaba]">
+              Fitastic becomes another growth engine for your brand.
+            </p>
+          </div>
+
+          <article className="resources-why-partner-intro absolute left-[10%] top-[32%] z-10 w-[min(34%,620px)] rounded-[24px] border border-white/90 bg-black/55 px-6 py-6 sm:px-7 sm:py-7">
+            <p className="text-[clamp(18px,1.7vw,32px)] font-medium leading-tight tracking-[-0.03em] text-white">
+              Your Products. Our Ecosystem. Shared Growth.
+            </p>
+            <ul className="mt-4 space-y-3 text-[clamp(13px,1.1vw,18px)] font-light leading-snug text-white/90">
+              <li className="border-l-2 border-[#bbf247] pl-3">
+                Fitastic isn&apos;t trying to replace your existing sales channels.
+              </li>
+              <li className="border-l-2 border-[#bbf247] pl-3">
+                We&apos;re creating an additional channel specifically around fitness consumers.
+              </li>
+            </ul>
+          </article>
+
+          {CARDS.map((card, i) => (
+            <article
+              key={card.num}
+              className="resources-why-partner-card absolute z-10 rounded-[24px] border border-white bg-black/70 px-5 py-5"
+              style={
+                {
+                  left: `${card.left}%`,
+                  top: `${card.top}%`,
+                  width: `${card.width}%`,
+                  minWidth: 220,
+                  ["--i" as string]: i,
+                } as CSSProperties
+              }
+            >
+              <CardBody num={card.num} title={card.title} body={card.body} />
+            </article>
+          ))}
         </div>
 
-        <article className="resources-why-partner-intro absolute left-[10%] top-[32%] z-10 w-[min(34%,620px)] rounded-[24px] border border-white/90 bg-black/55 px-6 py-6 sm:px-7 sm:py-7">
-          <p className="text-[clamp(18px,1.7vw,32px)] font-medium leading-tight tracking-[-0.03em] text-white">
-            Your Products. Our Ecosystem. Shared Growth.
-          </p>
-          <ul className="mt-4 space-y-3 text-[clamp(13px,1.1vw,18px)] font-light leading-snug text-white/90">
-            <li className="border-l-2 border-[#bbf247] pl-3">
-              Fitastic isn&apos;t trying to replace your existing sales channels.
-            </li>
-            <li className="border-l-2 border-[#bbf247] pl-3">
-              We&apos;re creating an additional channel specifically around fitness consumers.
-            </li>
-          </ul>
-        </article>
+        {/* Mobile: stacked */}
+        <div className="resources-why-partner-stack relative md:hidden">
+          <div className="absolute inset-0 overflow-hidden">
+            <img
+              src="/assets/resources/why-partner-bg.png"
+              alt=""
+              className="size-full object-cover object-bottom brightness-[0.6] blur-sm scale-105"
+              aria-hidden
+            />
+            <div className="absolute inset-0 bg-black/55" aria-hidden />
+            <img
+              src="/assets/resources/why-partner-circles.png"
+              alt=""
+              className="resources-why-partner-circles pointer-events-none absolute -right-[20%] top-0 w-[120%] max-w-none opacity-50"
+              aria-hidden
+            />
+          </div>
 
-        {CARDS.map((card, i) => (
-          <article
-            key={card.num}
-            className="resources-why-partner-card absolute z-10 rounded-[24px] border border-white bg-black/70 px-5 py-5"
-            style={{
-              left: `${card.left}%`,
-              top: `${card.top}%`,
-              width: `${card.width}%`,
-              minWidth: 220,
-              ["--i" as string]: i,
-            }}
-          >
-            <div className="flex items-start gap-2">
-              <span className="text-[clamp(16px,1.4vw,25px)] font-medium tracking-[-0.02em] text-white">
-                {card.num}
-              </span>
-              <div className="border-l-[2px] border-[#bbf247] pl-3">
-                <p className="text-[clamp(14px,1.35vw,24px)] font-medium leading-tight tracking-[-0.02em] text-white">
-                  {card.title}
-                </p>
-              </div>
-            </div>
-            <p className="mt-2 text-[clamp(12px,1.05vw,18px)] font-light leading-snug tracking-[-0.03em] text-white/90">
-              {card.body}
+          <div className="relative z-10 px-5 py-16 sm:px-8">
+            <h2 className="resources-why-partner-title text-[clamp(32px,9vw,48px)] font-medium leading-[1.05] tracking-[-0.03em] text-white">
+              Why Partner With Fitastic?
+            </h2>
+            <p className="resources-why-partner-sub mt-4 text-[clamp(16px,4vw,22px)] font-light leading-snug text-[#bcbaba]">
+              Fitastic becomes another growth engine for your brand.
             </p>
-          </article>
-        ))}
+
+            <article className="resources-why-partner-intro mt-8 rounded-[20px] border border-white/90 bg-black/70 px-5 py-5">
+              <p className="text-[18px] font-medium leading-tight tracking-[-0.03em] text-white">
+                Your Products. Our Ecosystem. Shared Growth.
+              </p>
+              <ul className="mt-4 space-y-3 text-[14px] font-light leading-snug text-white/90">
+                <li className="border-l-2 border-[#bbf247] pl-3">
+                  Fitastic isn&apos;t trying to replace your existing sales channels.
+                </li>
+                <li className="border-l-2 border-[#bbf247] pl-3">
+                  We&apos;re creating an additional channel specifically around fitness consumers.
+                </li>
+              </ul>
+            </article>
+
+            <div className="mt-6 space-y-4">
+              {CARDS.map((card, i) => (
+                <article
+                  key={card.num}
+                  className="resources-why-partner-card rounded-[20px] border border-white bg-black/70 px-5 py-5"
+                  style={{ ["--i" as string]: i } as CSSProperties}
+                >
+                  <CardBody num={card.num} title={card.title} body={card.body} />
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
