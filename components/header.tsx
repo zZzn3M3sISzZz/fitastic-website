@@ -13,6 +13,7 @@ const NAV = [
   { href: "/#fitness-on-demand", label: "On Demand" },
   { href: "/#shop", label: "Shop" },
   { href: "/#faqs", label: "FAQs" },
+  { href: "/resources", label: "Resources" },
 ];
 
 export function Header() {
