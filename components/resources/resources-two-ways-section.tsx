@@ -5,9 +5,9 @@ import { cn } from "@/lib/cn";
 import { useInView } from "@/lib/use-in-view";
 
 const PLANS = [
-  { plan: "Starter", duration: "3 Months", products: "Up to 10 Products", investment: "₹50,000" },
-  { plan: "Growth", duration: "6 Months", products: "Up to 20 Products", investment: "₹1,00,000" },
-  { plan: "Scale", duration: "12 Months", products: "Up to 30 Products", investment: "₹1,50,000" },
+  { plan: "Starter", duration: "1 Month", products: "Up to 10 Products", investment: "₹50,000" },
+  { plan: "Growth", duration: "3 Months", products: "Up to 15 Products", investment: "₹1,50,000" },
+  { plan: "Scale", duration: "6 Months", products: "Up to 20 Products", investment: "₹2,50,000" },
 ] as const;
 
 /** Hub + branch anchors in % of the 1920×1080 stage */
