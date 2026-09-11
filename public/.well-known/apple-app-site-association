@@ -7,5 +7,8 @@
         "paths": ["/attend", "/attend/*"]
       }
     ]
+  },
+  "webcredentials": {
+    "apps": ["WUNUUH5843.com.fitastic.mobile"]
   }
 }
