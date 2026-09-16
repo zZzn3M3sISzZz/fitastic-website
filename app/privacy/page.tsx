@@ -4,118 +4,137 @@ import { LegalPage, LegalSection } from "@/components/legal-page";
 export const metadata: Metadata = {
   title: "Privacy Policy | Fitastic",
   description:
-    "How Fitastic collects and uses waitlist emails and other information on fitastic.cc.",
+    "How Fitastic collects and uses personal information in the Fitastic app and on fitastic.cc.",
 };
 
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy Policy">
+    <LegalPage title="Privacy Policy" lastUpdated="September 2026">
       <LegalSection title="Overview">
         <p>
-          This Privacy Policy explains how Fitastic handles information on the
-          marketing website at{" "}
-          <a href="https://fitastic.cc">fitastic.cc</a> (the “Site”). The Site
-          is a waitlist and product preview. It does not create gym membership
-          accounts, take payments, or bill for subscriptions.
+          This Privacy Policy explains how Fitastic (“we”, “us”) handles
+          personal information when you use the Fitastic mobile app (the “App”),
+          related backend services, and the marketing website at{" "}
+          <a href="https://fitastic.cc">fitastic.cc</a> (the “Site”).
         </p>
         <p>
           Questions or requests:{" "}
-          <a href="mailto:admin@fitastic.cc">admin@fitastic.cc</a>.
+          <a href="mailto:admin@fitastic.cc">admin@fitastic.cc</a> or{" "}
+          <a href="mailto:support@fitastic.cc">support@fitastic.cc</a>.
         </p>
       </LegalSection>
 
-      <LegalSection title="What we collect">
-        <p>We collect only what we need to run the Site and the waitlist:</p>
+      <LegalSection title="Information we collect">
+        <p>Depending on how you use Fitastic, we may collect:</p>
         <ul>
           <li>
-            <strong>Waitlist email.</strong> If you join, we store the email
-            address you submit, along with a source note that it came from this
-            website.
+            <strong>Account details</strong> — phone number and authentication
+            data used to sign you in; optional email if you provide it or join
+            the Site waitlist.
           </li>
           <li>
-            <strong>Technical request data.</strong> Our hosting provider may
-            log standard web-server information (such as IP address, browser
-            type, and pages requested) to operate and secure the Site.
+            <strong>Profile and preferences</strong> — name, photo, goals, body
+            metrics you choose to enter, and similar fields you save.
+          </li>
+          <li>
+            <strong>Activity in the App</strong> — workouts, nutrition-related
+            entries, gym check-ins, community content you post, and related
+            timestamps.
+          </li>
+          <li>
+            <strong>Subscription and billing context</strong> — plan tier,
+            product identifiers, purchase/restore metadata, gym or partner
+            association, and status needed to unlock paid features. App Store /
+            Play Billing process payment; we do not store your full card
+            numbers from those stores.
+          </li>
+          <li>
+            <strong>Device and diagnostics</strong> — app version, device
+            platform, and error logs to keep the service reliable and secure.
+          </li>
+          <li>
+            <strong>Site technical data</strong> — standard web logs (such as IP
+            address and pages requested) when you browse fitastic.cc.
           </li>
         </ul>
-        <p>
-          We do not collect payment card details, gym membership numbers, or
-          workout data on this Site. You do not need an account to browse.
-        </p>
       </LegalSection>
 
       <LegalSection title="How we use it">
-        <p>We use waitlist emails to:</p>
+        <p>We use this information to:</p>
         <ul>
-          <li>send launch updates and early-access information about Fitastic;</li>
-          <li>manage the waitlist (for example, avoiding duplicate sign-ups);</li>
-          <li>respond if you contact us.</li>
+          <li>authenticate you and sync your data across devices;</li>
+          <li>
+            provide dashboards, coaching features, live classes, rewards, and
+            other App functionality;
+          </li>
+          <li>process and validate subscriptions and other purchases;</li>
+          <li>send waitlist or service communications you request;</li>
+          <li>improve stability, prevent abuse, and meet legal obligations.</li>
         </ul>
+      </LegalSection>
+
+      <LegalSection title="Sharing and processors">
         <p>
-          We use technical logs only to keep the Site running, debug issues, and
-          protect against abuse.
+          We do not sell your personal information. We share data only as needed
+          to operate the product — for example with cloud hosting (such as AWS),
+          push/notification providers, analytics where enabled, and payment
+          providers (Apple, Google, Razorpay) under contracts that require them
+          to protect your data. We may disclose information if required by law
+          or to protect the rights and safety of our users.
         </p>
       </LegalSection>
 
-      <LegalSection title="What we do not do">
+      <LegalSection title="Retention">
         <p>
-          We do not sell your email or other personal information. We do not
-          use it to run advertising profiles, and we do not share it with
-          unrelated third parties for their own marketing.
+          We keep information for as long as your account is active and as
+          needed to provide the service, comply with law, resolve disputes, and
+          enforce our agreements. You may ask us to delete certain data where
+          applicable law allows. Waitlist emails are kept until launch
+          communications finish, you ask us to delete them, or we no longer need
+          them for that purpose.
         </p>
       </LegalSection>
 
-      <LegalSection title="Who processes it">
+      <LegalSection title="Security">
         <p>
-          Emails are sent from your browser to our waitlist API and stored so
-          we can contact you at launch. The Site is hosted on AWS Amplify. Those
-          providers process data on our behalf to deliver the service. They are
-          not given permission to sell your information.
-        </p>
-      </LegalSection>
-
-      <LegalSection title="Cookies">
-        <p>
-          This Site does not run third-party analytics (such as Google
-          Analytics). The waitlist form does not set a tracking cookie; it
-          submits your email over HTTPS. Hosting and the Next.js app may use
-          strictly necessary cookies so the Site can load. Details are in our{" "}
-          <a href="/cookies">Cookie Policy</a>.
-        </p>
-      </LegalSection>
-
-      <LegalSection title="How long we keep it">
-        <p>
-          We keep waitlist emails until we have finished launch communications,
-          you ask us to delete them, or we no longer need them for the purpose
-          you signed up. Technical logs are retained only as long as our host
-          keeps them for operations and security.
+          We use industry-standard safeguards designed to protect data in
+          transit and at rest. No method of transmission over the internet is
+          completely secure; we work to reduce risk but cannot guarantee
+          absolute security.
         </p>
       </LegalSection>
 
       <LegalSection title="Your choices">
         <p>
-          Email{" "}
-          <a href="mailto:admin@fitastic.cc">admin@fitastic.cc</a> to ask us to
-          stop sending updates, to correct your address, or to delete your
-          waitlist entry. We will handle requests as promptly as we reasonably
-          can.
+          You can update much of your profile in the App. Email{" "}
+          <a href="mailto:admin@fitastic.cc">admin@fitastic.cc</a> to request
+          access, correction, export, or deletion where the law allows, or to
+          leave the Site waitlist. You can also stop using the App and, where
+          supported, delete your account.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="Cookies">
+        <p>
+          The Site does not run third-party advertising analytics by default.
+          Hosting and the Site may use strictly necessary cookies so pages can
+          load. Details are in our <a href="/cookies">Cookie Policy</a>.
         </p>
       </LegalSection>
 
       <LegalSection title="Children">
         <p>
-          The Site is aimed at adults interested in the Fitastic app. We do not
-          knowingly collect emails from children. If you believe a child has
-          joined the waitlist, contact us and we will remove the address.
+          Fitastic is not directed at children under the age where parental
+          consent is required in your region. We do not knowingly collect
+          personal information from those children.
         </p>
       </LegalSection>
 
       <LegalSection title="Changes">
         <p>
-          We may update this policy as the product launches or the Site
-          changes. The “Last updated” date at the top of this page will change
-          when we do.
+          We may update this policy from time to time. The “Last updated” date
+          at the top of this page will change when we do. Continued use after
+          changes means you accept the updated policy where permitted by law.
         </p>
       </LegalSection>
 

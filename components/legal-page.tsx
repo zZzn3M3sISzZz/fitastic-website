@@ -3,10 +3,16 @@ import { SiteFooter } from "@/components/site-footer";
 
 type LegalPageProps = {
   title: string;
+  /** Shown under the H1. Defaults to September 2026. */
+  lastUpdated?: string;
   children: React.ReactNode;
 };
 
-export function LegalPage({ title, children }: LegalPageProps) {
+export function LegalPage({
+  title,
+  lastUpdated = "September 2026",
+  children,
+}: LegalPageProps) {
   return (
     <>
       <Header />
@@ -16,7 +22,7 @@ export function LegalPage({ title, children }: LegalPageProps) {
             {title}
           </h1>
           <p className="mt-4 text-base leading-[1.4] text-muted">
-            Last updated: August 2026
+            Last updated: {lastUpdated}
           </p>
           <div className="mt-10 flex max-w-[720px] flex-col gap-10 text-base leading-[1.6] text-white">
             {children}
