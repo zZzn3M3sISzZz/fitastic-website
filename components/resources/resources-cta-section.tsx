@@ -46,7 +46,7 @@ export function ResourcesCtaSection() {
 
             <div className="resources-cta-pill mt-8 inline-flex max-w-full flex-wrap items-center gap-3 rounded-full border border-white px-2 py-2 sm:gap-4 sm:pl-2 sm:pr-6">
               <a
-                href="/#waitlist"
+                href="#enquire"
                 className="rounded-full bg-white px-5 py-2.5 text-[clamp(14px,1.2vw,20px)] font-semibold tracking-[-0.03em] text-black transition-opacity hover:opacity-80"
               >
                 Partner with Fitastic.
@@ -121,7 +121,7 @@ export function ResourcesCtaSection() {
 
               <div className="resources-cta-pill mt-8 flex flex-col gap-3 rounded-[24px] border border-white p-3 sm:rounded-full sm:p-2">
                 <a
-                  href="/#waitlist"
+                  href="#enquire"
                   className="inline-flex justify-center rounded-full bg-white px-5 py-3 text-[16px] font-semibold tracking-[-0.03em] text-black"
                 >
                   Partner with Fitastic.

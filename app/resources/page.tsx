@@ -3,6 +3,7 @@ import { ResourcesCommunitySection } from "@/components/resources/resources-comm
 import { ResourcesCrmSection } from "@/components/resources/resources-crm-section";
 import { ResourcesCtaSection } from "@/components/resources/resources-cta-section";
 import { ResourcesEcosystemSection } from "@/components/resources/resources-ecosystem-section";
+import { ResourcesEnquireSection } from "@/components/resources/resources-enquire-section";
 import { ResourcesExpertiseSection } from "@/components/resources/resources-expertise-section";
 import { ResourcesHeroSection } from "@/components/resources/resources-hero-section";
 import { ResourcesIndexSection } from "@/components/resources/resources-index-section";
@@ -32,6 +33,7 @@ export default function ResourcesPage() {
         <Header />
         <main className="resources-page bg-black">
           <ResourcesHeroSection />
+          <ResourcesEnquireSection sectionId="enquire" />
           <ResourcesPartnershipSection />
           <ResourcesIndexSection />
           <ResourcesEcosystemSection />
@@ -41,6 +43,7 @@ export default function ResourcesPage() {
           <ResourcesWhyPartnerSection />
           <ResourcesCommunitySection />
           <ResourcesCrmSection />
+          <ResourcesEnquireSection sectionId="enquire-bottom" />
           <ResourcesCtaSection />
         </main>
         <SiteFooter />
