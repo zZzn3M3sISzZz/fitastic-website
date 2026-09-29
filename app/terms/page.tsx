@@ -37,7 +37,7 @@ export default function TermsPage() {
         <p>
           Fitastic provides a consumer fitness platform: member accounts,
           workouts, nutrition tools, gym and trainer features, live classes
-          (“Floor”), a rewards shop, community features, and optional paid
+          (“Floor”), an in-app Shop, community features, and optional paid
           subscriptions. For questions about these Terms, email{" "}
           <a href="mailto:admin@fitastic.cc">admin@fitastic.cc</a> or{" "}
           <a href="mailto:support@fitastic.cc">support@fitastic.cc</a>.
@@ -135,7 +135,7 @@ export default function TermsPage() {
         <p>
           Separate from auto-renewable subscriptions, the App may offer
           one-time or session purchases (for example paid Floor live classes or
-          Reward Shop items). Those purchases are governed by the in-app Terms
+          Shop items). Those purchases are governed by the in-app Terms
           of Service and checkout disclosures at the time of payment, including
           platform fees and partner/vendor policies where applicable.
         </p>

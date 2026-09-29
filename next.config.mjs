@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: "/waitlist",
+        destination: "/#waitlist",
+        permanent: false,
+      },
+    ];
+  },
   async headers() {
     // Digital Asset Links + Apple App Site Association must be application/json
     // (not text/html or octet-stream) for Play Console / iOS Universal Links.
