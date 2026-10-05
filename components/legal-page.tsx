@@ -36,13 +36,15 @@ export function LegalPage({
 
 export function LegalSection({
   title,
+  id,
   children,
 }: {
   title: string;
+  id?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex flex-col gap-3">
+    <section id={id} className="flex scroll-mt-24 flex-col gap-3">
       <h2 className="font-display text-[clamp(22px,3vw,33px)] uppercase leading-[1.2] text-lime">
         {title}
       </h2>

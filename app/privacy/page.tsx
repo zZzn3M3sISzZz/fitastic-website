@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy Policy" lastUpdated="September 2026">
+    <LegalPage title="Privacy Policy" lastUpdated="October 2026">
       <LegalSection title="Overview">
         <p>
           This Privacy Policy explains how Fitastic (“we”, “us”) handles
@@ -42,6 +42,11 @@ export default function PrivacyPage() {
             timestamps.
           </li>
           <li>
+            <strong>Location data</strong> — your device&apos;s precise location
+            when you allow it, including in the background if you turn on Auto
+            gym check-in. See <a href="#location-data">Location data</a> below.
+          </li>
+          <li>
             <strong>Subscription and billing context</strong> — plan tier,
             product identifiers, purchase/restore metadata, gym or partner
             association, and status needed to unlock paid features. App Store /
@@ -59,6 +64,43 @@ export default function PrivacyPage() {
         </ul>
       </LegalSection>
 
+      <LegalSection title="Location data" id="location-data">
+        <p>
+          The App asks for location access only for the features below. You can
+          change or revoke it at any time in your device settings.
+        </p>
+        <ul>
+          <li>
+            <strong>Auto gym check-in (optional, off by default)</strong> — when
+            you turn it on in Profile › Account Settings and allow location
+            access all the time, the App collects your device&apos;s precise
+            location, including when the App is closed or not in use, to detect
+            when you are within about 50 m of your gym. When you arrive, we
+            record a check-in in your attendance history and show a notification
+            about your gym; when you leave, the notification is removed. Your
+            location is compared with your gym&apos;s location on your device
+            and is not sent to our servers — only the check-in (gym and time) is
+            saved to your account. The App does not track your location
+            continuously. Turning Auto gym check-in off stops all background
+            location use.
+          </li>
+          <li>
+            <strong>At-your-gym status</strong> — while the App is open, it may
+            use your location to show whether you are at your gym. This stays on
+            your device.
+          </li>
+          <li>
+            <strong>Nearby places with Morgan</strong> — when you ask Morgan,
+            our in-app coach, for nearby places, your current location is sent
+            with that request so we can return relevant results.
+          </li>
+        </ul>
+        <p>
+          We do not sell location data, share it for advertising, or use it for
+          analytics.
+        </p>
+      </LegalSection>
+
       <LegalSection title="How we use it">
         <p>We use this information to:</p>
         <ul>
@@ -66,6 +108,10 @@ export default function PrivacyPage() {
           <li>
             provide dashboards, coaching features, live classes, rewards, and
             other App functionality;
+          </li>
+          <li>
+            check you in to your gym automatically when you turn on Auto gym
+            check-in;
           </li>
           <li>process and validate subscriptions and other purchases;</li>
           <li>send waitlist or service communications you request;</li>
