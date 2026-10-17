@@ -22,6 +22,7 @@ const COLUMNS = [
       { href: "/terms", label: "Terms of Use" },
       { href: "/privacy", label: "Privacy Policy" },
       { href: "/cookies", label: "Cookie Policy" },
+      { href: "/delete-account", label: "Delete account" },
     ],
   },
 ];

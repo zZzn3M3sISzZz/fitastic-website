@@ -44,6 +44,8 @@ If the stack is created without Git, connect the repo in **Amplify â†’ Hosting â
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `NEXT_PUBLIC_WAITLIST_API_URL` | Yes | Public `POST` URL from AdminStack output `WaitlistApiEndpoint` |
+| `NEXT_PUBLIC_BUSINESS_ENQUIRE_API_URL` | Yes | Public `POST` URL from AdminStack output `BusinessEnquireApiEndpoint` |
+| `FITASTIC_API_BASE_URL` | No | Fitastic API base for `/delete-account` server proxies (defaults to production execute-api) |
 
 CDK sets this from the Admin API. After changing it, **redeploy the Amplify branch** so the value is baked into the client bundle.
 

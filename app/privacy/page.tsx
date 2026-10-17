@@ -155,8 +155,9 @@ export default function PrivacyPage() {
           You can update much of your profile in the App. Email{" "}
           <a href="mailto:admin@fitastic.cc">admin@fitastic.cc</a> to request
           access, correction, export, or deletion where the law allows, or to
-          leave the Site waitlist. You can also stop using the App and, where
-          supported, delete your account.
+          leave the Site waitlist. You can also stop using the App and delete
+          your account in the App (Profile) or on the Site at{" "}
+          <a href="/delete-account">fitastic.cc/delete-account</a>.
         </p>
       </LegalSection>
 
