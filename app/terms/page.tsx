@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <LegalPage title="Terms of Use" lastUpdated="September 2026">
+    <LegalPage title="Terms of Use" lastUpdated="October 21, 2026">
       <LegalSection title="About these terms">
         <p>
           These Terms of Use (“Terms”) are the end-user license agreement (EULA)
@@ -146,7 +146,39 @@ export default function TermsPage() {
           Fitastic content involves physical activity. You participate at your
           own risk and should consult a qualified professional if you have
           medical concerns. Fitastic is not medical advice, physiotherapy, or
-          clinical care.
+          clinical care. Health data the App reads (such as heart rate, steps,
+          or sleep) is fitness context for coaching and displays. It is not a
+          diagnosis, and Morgan is not a medical device.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="Location and health data">
+        <p>
+          Some features need device permissions. The App accesses, collects,
+          and uses Location and Health data only after you allow it, and only
+          as described in the <a href="/privacy">Privacy Policy</a>.
+        </p>
+        <ul>
+          <li>
+            <strong>Location</strong> — precise location for optional Auto gym
+            check-in (including in the background if you turn that feature on
+            and allow access all the time), to show whether you are at your gym
+            while the App is open, and to find nearby places when you ask
+            Morgan. You can turn Auto gym check-in off in the App and revoke
+            location access in your device settings.
+          </li>
+          <li>
+            <strong>Health</strong> — if you turn on Share Health data with
+            Morgan, the App reads heart rate, resting heart rate, heart rate
+            variability, steps, active energy, and sleep from Apple Health or
+            Health Connect and uploads a daily summary to your account for
+            coaching and your morning report. You can turn this off in Profile
+            and revoke access in Apple Health or Health Connect.
+          </li>
+        </ul>
+        <p>
+          Declining either permission does not block the rest of the App. We do
+          not sell Location or Health data.
         </p>
       </LegalSection>
 
